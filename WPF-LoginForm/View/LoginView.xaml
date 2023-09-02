@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_LoginForm.View"
+        xmlns:viewModel ="clr-namespace:WPF_LoginForm.ViewModels"
+        xmlns:customcontrols="clr-namespace:WPF_LoginForm.CustomControls"
         mc:Ignorable="d"
         Title="LoginView" Height="550" Width="800"
         WindowStyle="None"
@@ -12,7 +14,15 @@
         Background="Transparent"
         AllowsTransparency="True"
         MouseDown="Window_MouseDown">
-
+    <Window.DataContext>
+        <viewModel:LoginViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
+    </Window.Resources>
+    <Window.Visibility>
+        <Binding Path="IsViewVisible" Mode="TwoWay" Converter="{StaticResource BooleanToVisibility}" />
+    </Window.Visibility>
     <Border CornerRadius="12">
         <Border.Background>
             <ImageBrush ImageSource="/Images/back-image.jpg"
@@ -159,6 +169,7 @@
                                FontFamily="Montserrat"
                                Margin="0,35,0,0"/>
                     <TextBox x:Name="txtUser"
+                               Text="{Binding Username}"
                                FontSize="13"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
@@ -185,24 +196,11 @@
                                FontWeight="Medium"
                                FontFamily="Montserrat"
                                Margin="0,35,0,0"/>
-                    <PasswordBox x:Name="txtPass"
-                               FontSize="13"
-                               FontWeight="Medium"
-                               FontFamily="Montserrat"
-                               Foreground="White"
-                               CaretBrush="LightGray"
-                               BorderBrush="DarkGray"
-                               BorderThickness="0,0,0,1"
+                    <customcontrols:BindablePasswordBox 
                                Height="28"
-                               VerticalAlignment="Center"
-                               Margin="0,5,0,0" 
-                               Padding="20,0,0,0">
-                        <PasswordBox.Background>
-                            <ImageBrush ImageSource="/Images/key-icon.png"
-                                        Stretch="None"
-                                        AlignmentX="Left"/>
-                        </PasswordBox.Background>
-                    </PasswordBox>
+                               Margin="0,5,0,0" >
+                        
+                    </customcontrols:BindablePasswordBox>
                     <Button x:Name="btnLogin"                          
                               BorderThickness="0"
                               Content="LOGIN"
