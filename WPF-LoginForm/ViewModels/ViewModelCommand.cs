@@ -9,51 +9,39 @@ namespace WPF_LoginForm.ViewModels
 {
     public class ViewModelCommand : ICommand
     {
-        //Field 
-        private readonly Action<object> _excuteAction;
-        private readonly Predicate<object> _canExcuteAction;
+        //Fields
+        private readonly Action<object> _executeAction;
+        private readonly Predicate<object> _canExecuteAction;
 
-        //Constructor 
-        public ViewModelCommand(Action<object> excuteAction)
+        //Constructors
+        public ViewModelCommand(Action<object> executeAction)
         {
-            _excuteAction = excuteAction;
-            _canExcuteAction = null;
+            _executeAction = executeAction;
+            _canExecuteAction = null;
         }
 
-        public ViewModelCommand(Action<object> excuteAction , Predicate<object> canExcuteAction) 
+        public ViewModelCommand(Action<object> executeAction, Predicate<object> canExecuteAction)
         {
-            _excuteAction = excuteAction;
-            _canExcuteAction = canExcuteAction;
+            _executeAction = executeAction;
+            _canExecuteAction = canExecuteAction;
         }
 
-        public event EventHandler? CanExecuteChanged;
-
-
-        // Event 
-        public event EventHandler CanExcuteChanged
+        //Events
+        public event EventHandler CanExecuteChanged
         {
             add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value;}
-        }
-        
-        public bool CanExcute(object parameter)
-        {
-           return _canExcuteAction == null ? true : _canExcuteAction(parameter); 
+            remove { CommandManager.RequerySuggested -= value; }
         }
 
-        public bool CanExecute(object? parameter)
+        //Methods
+        public bool CanExecute(object parameter)
         {
-            throw new NotImplementedException();
+            return _canExecuteAction == null ? true : _canExecuteAction(parameter);
         }
 
-        public void Excute(object parameter)
+        public void Execute(object parameter)
         {
-            _excuteAction(parameter);
-        }
-
-        public void Execute(object? parameter)
-        {
-            throw new NotImplementedException();
+            _executeAction(parameter);
         }
     }
 }

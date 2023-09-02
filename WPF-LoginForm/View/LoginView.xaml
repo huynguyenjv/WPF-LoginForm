@@ -15,7 +15,7 @@
         AllowsTransparency="True"
         MouseDown="Window_MouseDown">
     <Window.DataContext>
-        <viewModel:LoginViewModel />
+        <viewModel:LoginViewModel/>
     </Window.DataContext>
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
@@ -23,6 +23,7 @@
     <Window.Visibility>
         <Binding Path="IsViewVisible" Mode="TwoWay" Converter="{StaticResource BooleanToVisibility}" />
     </Window.Visibility>
+    
     <Border CornerRadius="12">
         <Border.Background>
             <ImageBrush ImageSource="/Images/back-image.jpg"
@@ -162,14 +163,16 @@
                                TextWrapping="Wrap"
                                TextAlignment="Center"
                                Margin="0,5,0,0"/>
+                    
                     <TextBlock Text="Username"
                                Foreground="DarkGray"
                                FontSize="12"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
                                Margin="0,35,0,0"/>
+                    
                     <TextBox x:Name="txtUser"
-                               Text="{Binding Username}"
+                               Text="{Binding Username , UpdateSourceTrigger=PropertyChanged}"
                                FontSize="13"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
@@ -181,6 +184,7 @@
                                VerticalContentAlignment="Center"
                                Margin="0,5,0,0"
                                Padding="20,0,0,0">
+                        
                         <TextBox.Background>
                             <ImageBrush ImageSource="/Images/user-icon.png"
                                         Stretch="None" 
@@ -196,12 +200,24 @@
                                FontWeight="Medium"
                                FontFamily="Montserrat"
                                Margin="0,35,0,0"/>
-                    <customcontrols:BindablePasswordBox 
+                    
+                    <customcontrols:BindablePasswordBox
+                               Password="{Binding Password , Mode=TwoWay , UpdateSourceTrigger=PropertyChanged}"
                                Height="28"
                                Margin="0,5,0,0" >
                         
                     </customcontrols:BindablePasswordBox>
-                    <Button x:Name="btnLogin"                          
+                    
+                    <TextBlock Text="{Binding ErrorMessage}"
+                               FontSize="12"
+                               Foreground="#D7596D"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat"
+                               Margin="0,10,0,0"
+                               TextWrapping="Wrap"/>
+                    
+                    <Button x:Name="btnLogin"
+                              Command= "{Binding LoginCommand}"
                               BorderThickness="0"
                               Content="LOGIN"
                               Foreground="White"
@@ -209,8 +225,7 @@
                               FontFamily="Montserrat"
                               Cursor="Hand"
                               Grid.Column="2"
-                              Margin="0,50,0,0"
-                              Click="btnLogin_Click">
+                              Margin="0,30,0,0">
 
                         <Button.Style>
                             <Style TargetType="Button">

@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security;
+using System.Security.Principal;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Markup;
+using WPF_LoginForm.Models;
+using WPF_LoginForm.Repositories;
 
 namespace WPF_LoginForm.ViewModels
 {
@@ -16,6 +21,10 @@ namespace WPF_LoginForm.ViewModels
         private SecureString _password;
         private string _errorMessage;
         private bool _isViewVisible = true;
+
+        private IUserRepository userRepository;
+
+        public event EventHandler? CanExecuteChanged;
 
         //Properties 
         public string Username
@@ -80,6 +89,7 @@ namespace WPF_LoginForm.ViewModels
         // Constructor 
         public LoginViewModel()
         {
+            userRepository = new UserRepository();
             LoginCommand = new ViewModelCommand(ExcuteLoginCommand, CanExcuteLoginCommand);
             RecoverPasswordCommnad = new ViewModelCommand(p => ExcuteRecoverPassCommnad("",""));
 
@@ -104,7 +114,27 @@ namespace WPF_LoginForm.ViewModels
 
         private void ExcuteLoginCommand(object obj)
         {
-            
+            var isValidUser = userRepository.AuthenticateUser(new NetworkCredential(Username,Password));
+            if (isValidUser)
+            {
+                Thread.CurrentPrincipal = new GenericPrincipal(
+                    new GenericIdentity(Username), null);
+                IsViewVisible = false;
+            }
+            else
+            {
+                ErrorMessage = "* Invalid username or password";
+            }
+        }
+
+        public bool CanExecute(object? parameter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Execute(object? parameter)
+        {
+            throw new NotImplementedException();
         }
     }
 }
