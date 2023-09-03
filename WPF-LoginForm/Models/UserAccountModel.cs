@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WPF_LoginForm.Models
 {
-    class UserAccountModel
+    public class UserAccountModel
     {
         public string Username { get; set; }
         public string DisplayName { get; set; }
