@@ -16,20 +16,20 @@ namespace WPF_LoginForm
     {
         protected void ApplicationStart(object sender, StartupEventArgs e)
         {
-            /*  var loginView = new LoginView();
-              loginView.Show();
-              loginView.IsVisibleChanged += (s, ev) =>
-              {
-                  if (loginView.IsVisible == false && loginView.IsLoaded)
-                  {
-                      var mainView = new MainWindow();
-                      mainView.Show();
-                      loginView.Close();
-                  }
-              };*/
+            var loginView = new LoginView();
+            loginView.Show();
+            loginView.IsVisibleChanged += (s, ev) =>
+            {
+                if (loginView.IsVisible == false && loginView.IsLoaded)
+                {
+                    var mainView = new MainWindow();
+                    mainView.Show();
+                    loginView.Close();
+                }
+            };
 
-            var mainView = new MainWindow();
-            mainView.Show();
+            /* var mainView = new MainWindow();
+             mainView.Show();*/
         }
     }
 }
