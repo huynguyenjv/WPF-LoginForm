@@ -19,8 +19,6 @@ namespace WPF_LoginForm.Repositories
             using (var command = new SqlCommand())
 
             {
-                Console.WriteLine(credential.UserName);
-                Console.WriteLine(credential.Password);
                 connection.Open();
                 command.Connection = connection;
                 command.CommandText = "select * from [User] where username= @username and [password] = @password";

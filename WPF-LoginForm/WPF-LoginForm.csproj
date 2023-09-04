@@ -9,24 +9,25 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="CustomControls\key-icon.png" />
     <None Remove="Images\back-image.jpg" />
     <None Remove="Images\key-icon.png" />
     <None Remove="Images\logo.png" />
+    <None Remove="Images\profile-icon.jpg" />
     <None Remove="Images\user-icon.png" />
     <None Remove="View\logo.png" />
     <None Remove="View\logo_team.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="FontAwesome.Sharp" Version="6.3.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="CustomControls\key-icon.png" />
     <Resource Include="Images\back-image.jpg" />
     <Resource Include="Images\key-icon.png" />
     <Resource Include="Images\logo.png" />
+    <Resource Include="Images\profile-icon.jpg" />
     <Resource Include="Images\user-icon.png" />
   </ItemGroup>
 
